@@ -34,13 +34,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Drawer Logic
     const btnToggleDrawer = document.getElementById("btn-toggle-drawer");
     const studentDrawer = document.getElementById("student-drawer");
+    const touchHint = document.getElementById("touch-hint");
 
-    btnToggleDrawer.addEventListener("click", () => {
+    function openStudentDrawer() {
         // Show the drawer completely
         studentDrawer.classList.remove("hidden");
         // Hide this button permanently once pressed
         btnToggleDrawer.classList.add("hidden");
-    });
+        // Hide the touch hint message
+        if (touchHint) touchHint.classList.add("hidden");
+    }
+
+    btnToggleDrawer.addEventListener("click", openStudentDrawer);
+    if (touchHint) touchHint.addEventListener("click", openStudentDrawer);
 
     // Populate student buttons
     const buttonsContainer = document.getElementById("student-buttons-container");
@@ -89,14 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const studentIdx = students.findIndex(s => s.id === student.id);
             const positions = [
                 // Back row (Girls: 0, 1, 2, 3)
-                { left: '15%', bottom: '25%', zIndex: 10, scale: 0.9 },
-                { left: '38%', bottom: '25%', zIndex: 10, scale: 0.9 },
-                { left: '62%', bottom: '25%', zIndex: 10, scale: 0.9 },
-                { left: '85%', bottom: '25%', zIndex: 10, scale: 0.9 },
+                { left: '15%', bottom: '40%', zIndex: 10, scale: 0.9 },
+                { left: '38%', bottom: '40%', zIndex: 10, scale: 0.9 },
+                { left: '62%', bottom: '40%', zIndex: 10, scale: 0.9 },
+                { left: '85%', bottom: '40%', zIndex: 10, scale: 0.9 },
                 // Front row (Boys: 4, 5, 6)
-                { left: '26.5%', bottom: '10%', zIndex: 20, scale: 1.05 },
-                { left: '50%', bottom: '10%', zIndex: 20, scale: 1.05 },
-                { left: '73.5%', bottom: '10%', zIndex: 20, scale: 1.05 }
+                { left: '26.5%', bottom: '25%', zIndex: 20, scale: 1.05 },
+                { left: '50%', bottom: '25%', zIndex: 20, scale: 1.05 },
+                { left: '73.5%', bottom: '25%', zIndex: 20, scale: 1.05 }
             ];
 
             const pos = positions[studentIdx] || { left: '50%', bottom: '15%', zIndex: 15, scale: 1 };
