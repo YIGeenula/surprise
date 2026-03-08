@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thank You Sensei</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sakura background container -->
+    <div id="sakura-container"></div>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <button id="btn-hi-sensei" class="primary-btn pulse">こんにちは</button>
+    </div>
+
+    <!-- Main Stage Screen -->
+    <div id="main-screen" class="screen">
+        <div class="japan-sun"></div>
+
+        <div class="clouds">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+            <div class="cloud cloud-4"></div>
+            <div class="cloud cloud-5"></div>
+            <div class="cloud cloud-6"></div>
+            <div class="cloud cloud-7"></div>
+            <div class="cloud cloud-8"></div>
+            <div class="cloud cloud-9"></div>
+        </div>
+
+        <div class="stage-container">
+            <!-- Stage background/curtains -->
+            <div class="curtain left-curtain">
+                <div class="lantern">🏮</div>
+            </div>
+            <div class="curtain right-curtain">
+                <div class="lantern">🏮</div>
+            </div>
+
+            <div class="stage-floor">
+                <!-- Characters will appear here -->
+                <div id="characters-area"></div>
+            </div>
+        </div>
+
+        <!-- Student Drawer Toggle -->
+        <button id="btn-toggle-drawer" class="secondary-btn">Show Students</button>
+
+        <!-- Student Drawer -->
+        <div id="student-drawer" class="drawer hidden">
+            <div class="drawer-content" id="student-buttons-container">
+                <!-- Buttons will be injected via JS -->
+            </div>
+        </div>
+
+        <!-- Final Thank You Trigger -->
+        <button id="btn-let-us-thank" class="primary-btn hidden">LET US THANK YOU</button>
+    </div>
+
+    <!-- Final Animated Banner -->
+    <div id="thank-you-banner" class="hidden">
+        <div class="banner-content">
+            <h1>どうもありがとうございます</h1>
+            <p>For all your guidance, patience, and inspiration.</p>
+            <button id="btn-return" class="secondary-btn return-btn">Return 🌸</button>
+            <div class="confetti-container"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
