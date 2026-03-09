@@ -4,6 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body {
@@ -21,15 +22,21 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
 }
 
 .active {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 /* Japan Vibe Sakura Animations */
@@ -549,7 +556,7 @@ button {
     }
 
     100% {
-        transform: translateY(0) scale(1) translateX(-50%);
+        transform: translateY(0) scale(var(--target-scale, 1)) translateX(-50%);
         opacity: 1;
     }
 }
@@ -753,7 +760,9 @@ button {
 }
 
 .hidden {
-    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden;
 }
 
 /* Let Us Thank You Button */
@@ -890,4 +899,102 @@ button {
     to {
         transform: translateY(100vh) rotate(720deg);
     }
+}
+
+/* Modal and Interactions */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.modal-box {
+    background: #fff;
+    padding: 24px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.4);
+    text-align: center;
+    max-width: 85%;
+    border: 4px solid #ffb5cb;
+    animation: popIn 0.3s ease-out;
+}
+
+.modal-box p {
+    color: #e91e63;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.modal-box h3 {
+    color: #d81b60;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.clickable-character {
+    cursor: pointer;
+    transition: filter 0.2s;
+    pointer-events: auto;
+}
+
+.clickable-character:hover {
+    filter: drop-shadow(0 10px 15px rgba(255, 255, 255, 0.8)) !important;
+}
+
+@keyframes shake-margin {
+    0% {
+        margin-left: 0;
+    }
+
+    25% {
+        margin-left: -4px;
+    }
+
+    50% {
+        margin-left: 4px;
+    }
+
+    75% {
+        margin-left: -4px;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+.shake-effect {
+    animation: shake-margin 0.4s ease-in-out 2;
+}
+
+.secondary-btn {
+    background: #fff;
+    color: #e91e63;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 2px solid #ffb5cb;
+    box-shadow: 0 4px 0 #ffb5cb, 0 8px 15px rgba(255, 182, 193, 0.3);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.secondary-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #ffb5cb;
 }

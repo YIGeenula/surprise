@@ -32,6 +32,7 @@
             <div class="cloud cloud-7"></div>
             <div class="cloud cloud-8"></div>
             <div class="cloud cloud-9"></div>
+            <div class="cloud cloud-10"></div>
         </div>
 
         <div class="stage-container">
@@ -67,6 +68,24 @@
 
         <!-- Final Thank You Trigger -->
         <button id="btn-let-us-thank" class="primary-btn hidden">LET US THANK YOU</button>
+
+        <!-- Custom Alert Modal -->
+        <div id="custom-alert" class="modal-overlay hidden">
+            <div class="modal-box">
+                <p>Are you really going to leave without even reading our messages?😓</p>
+                <button id="btn-alert-ok" class="secondary-btn">OK...</button>
+            </div>
+        </div>
+
+        <!-- Student Message Modal -->
+        <div id="student-message-modal" class="modal-overlay hidden">
+            <div class="modal-box">
+                <h3 id="student-message-name"></h3>
+                <p id="student-message-text" style="color: #4a148c; font-weight: 500;"></p>
+                <button id="btn-close-message" class="primary-btn pulse"
+                    style="font-size: 1rem; padding: 10px 20px;">❤️</button>
+            </div>
+        </div>
     </div>
 
     <!-- Final Animated Banner -->

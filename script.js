@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Array of students with mapping to their specific asset names.
     const students = [
-        { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3' },
-        { id: 'isuri', name: 'イスリ<br>さん', voiceFileName: 'isuri.mp3' },
-        { id: 'senuri', name: 'セヌリ<br>さん', voiceFileName: 'senuri.mp3' },
-        { id: 'geenula', name: 'ヤシル<br>さん', voiceFileName: 'geenula.mp3' }, // Note filename exception based on dir
-        { id: 'gesitha', name: 'ゲシタ<br>さん', voiceFileName: 'gesitha.mp3' },
-        { id: 'nimesh', name: 'ニメシュ<br>さん', voiceFileName: 'nimesh.mp3' }
+        { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3', message: 'Sensei, thank you for teaching us so patiently! Every lesson was a joy. We will never forget you! 💖' },
+        { id: 'isuri', name: 'イスリ<br>さん', voiceFileName: 'isuri.mp3', message: 'You made learning Japanese so incredibly fun! Thank you for everything, Sensei! 🌸' },
+        { id: 'senuri', name: 'セヌリ<br>さん', voiceFileName: 'senuri.mp3', message: 'Your classes were always the brightest part of my day! Thank you from the bottom of my heart! ✨' },
+        { id: 'geenula', name: 'ヤシル<br>さん', voiceFileName: 'geenula.mp3', message: 'Sensei, no words can express how amazing you are as a teacher! I am so deeply grateful! 🥺' },
+        { id: 'gesitha', name: 'ゲシタ<br>さん', voiceFileName: 'gesitha.mp3', message: 'Thank you for your endless support, patience, and guidance! We will miss you so much! 🌟' },
+        { id: 'nimesh', name: 'ニメシュ<br>さん', voiceFileName: 'nimesh.mp3', message: 'Arigatou gozaimasu, Sensei! Your teachings truly changed my life! 🙏' }
     ];
+
+    let messagesRead = new Set();
 
     let clickedCount = 0;
     const clickedStudents = new Set();
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // After transition time, swap classes
         setTimeout(() => {
             welcomeScreen.classList.remove("active");
+            welcomeScreen.style.pointerEvents = "none";
             mainScreen.classList.add("active");
             mainScreen.classList.add("enter-stage");
         }, 800);
@@ -89,14 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const charImg = document.createElement("img");
             charImg.src = `assets/students/${student.id}.png`;
             charImg.className = "character-sprite animate-slideup";
+            charImg.dataset.id = student.id;
 
             // Align characters in a staggered V-formation to prevent overlapping
             const studentIdx = students.findIndex(s => s.id === student.id);
             const positions = [
                 // Girls (0, 1, 2)
-                { left: '18%', bottom: '45%', zIndex: 10, scale: 0.9 },
-                { left: '50%', bottom: '48%', zIndex: 10, scale: 0.85 },
-                { left: '82%', bottom: '45%', zIndex: 10, scale: 0.9 },
+                { left: '18%', bottom: '75%', zIndex: 10, scale: 0.9 },
+                { left: '50%', bottom: '75%', zIndex: 10, scale: 0.9 },
+                { left: '82%', bottom: '75%', zIndex: 10, scale: 0.9 },
                 // Boys (3, 4, 5)
                 { left: '34%', bottom: '22%', zIndex: 20, scale: 1.0 },
                 { left: '66%', bottom: '22%', zIndex: 20, scale: 1.0 },
@@ -108,10 +112,23 @@ document.addEventListener("DOMContentLoaded", () => {
             charImg.style.left = pos.left;
             charImg.style.bottom = pos.bottom;
             charImg.style.zIndex = pos.zIndex;
-            charImg.style.transform = `translateX(-50%) scale(${pos.scale})`;
+            charImg.style.setProperty('--target-scale', pos.scale);
+            charImg.style.transform = `translateY(0) scale(${pos.scale}) translateX(-50%)`;
             charImg.style.width = '20%'; // Since mobile screens are small, limit width to around 15-20%
 
             charactersArea.appendChild(charImg);
+
+            // Make character clickable for message
+            charImg.classList.add("clickable-character");
+            charImg.addEventListener("click", () => {
+                const msgModal = document.getElementById("student-message-modal");
+                const msgName = document.getElementById("student-message-name");
+                const msgText = document.getElementById("student-message-text");
+                msgName.innerHTML = student.name.replace('<br>', ' ');
+                msgText.textContent = student.message || "Thank you, Sensei!";
+                msgModal.classList.remove("hidden");
+                messagesRead.add(student.id);
+            });
 
             // Check if all are clicked
             const totalStudents = students.length;
@@ -138,18 +155,56 @@ document.addEventListener("DOMContentLoaded", () => {
                     btnLetUsThank.classList.add("animate-popin");
                 });
             });
+
+            // Start shaking effect to convince reading
+            setInterval(() => {
+                const characters = document.querySelectorAll(".character-sprite");
+                characters.forEach((char, index) => {
+                    // Stagger the shake so they don't all shake at exactly the same time
+                    const randomDelay = Math.random() * 500 + (index * 300);
+                    setTimeout(() => {
+                        if (char.dataset.id && messagesRead.has(char.dataset.id)) {
+                            return; // don't shake if already read
+                        }
+                        char.classList.remove("shake-effect");
+                        void char.offsetWidth; // trigger reflow
+                        char.classList.add("shake-effect");
+                    }, randomDelay);
+                });
+            }, 4000);
         }, 800);
     }
 
     const thankYouBanner = document.getElementById("thank-you-banner");
 
     btnLetUsThank.addEventListener("click", () => {
+        if (messagesRead.size < students.length) {
+            const customAlert = document.getElementById("custom-alert");
+            if (customAlert) customAlert.classList.remove("hidden");
+            return;
+        }
+
         thankYouBanner.classList.remove("hidden");
         thankYouBanner.classList.add("animate-banner");
 
         // Optionally create some confetti effect
         createConfetti();
     });
+
+    // Modal Close Logic
+    const btnAlertOk = document.getElementById("btn-alert-ok");
+    if (btnAlertOk) {
+        btnAlertOk.addEventListener("click", () => {
+            document.getElementById("custom-alert").classList.add("hidden");
+        });
+    }
+
+    const btnCloseMessage = document.getElementById("btn-close-message");
+    if (btnCloseMessage) {
+        btnCloseMessage.addEventListener("click", () => {
+            document.getElementById("student-message-modal").classList.add("hidden");
+        });
+    }
 
     const btnReturn = document.getElementById("btn-return");
     if (btnReturn) {
