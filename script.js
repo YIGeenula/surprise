@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Array of students with mapping to their specific asset names.
     const students = [
-        { id: 'dihansa', name: 'ディハンサ<br>さん', voiceFileName: 'dihansa.mp3' },
-        { id: 'isuri', name: 'イースリ<br>さん', voiceFileName: 'isuri.mp3' },
-        { id: 'noname', name: 'Noname', voiceFileName: 'noname.mp3' },
+        { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3' },
+        { id: 'isuri', name: 'イスリ<br>さん', voiceFileName: 'isuri.mp3' },
         { id: 'senuri', name: 'セヌリ<br>さん', voiceFileName: 'senuri.mp3' },
         { id: 'geenula', name: 'ヤシル<br>さん', voiceFileName: 'geenula.mp3' }, // Note filename exception based on dir
         { id: 'gesitha', name: 'ゲシタ<br>さん', voiceFileName: 'gesitha.mp3' },
@@ -91,18 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
             charImg.src = `assets/students/${student.id}.png`;
             charImg.className = "character-sprite animate-slideup";
 
-            // Align characters based on a 4-3 formation (back row girls, front row boys)
+            // Align characters in a staggered V-formation to prevent overlapping
             const studentIdx = students.findIndex(s => s.id === student.id);
             const positions = [
-                // Back row (Girls: 0, 1, 2, 3)
-                { left: '15%', bottom: '40%', zIndex: 10, scale: 0.9 },
-                { left: '38%', bottom: '40%', zIndex: 10, scale: 0.9 },
-                { left: '62%', bottom: '40%', zIndex: 10, scale: 0.9 },
-                { left: '85%', bottom: '40%', zIndex: 10, scale: 0.9 },
-                // Front row (Boys: 4, 5, 6)
-                { left: '26.5%', bottom: '25%', zIndex: 20, scale: 1.05 },
-                { left: '50%', bottom: '25%', zIndex: 20, scale: 1.05 },
-                { left: '73.5%', bottom: '25%', zIndex: 20, scale: 1.05 }
+                // Girls (0, 1, 2)
+                { left: '18%', bottom: '45%', zIndex: 10, scale: 0.9 },
+                { left: '50%', bottom: '48%', zIndex: 10, scale: 0.85 },
+                { left: '82%', bottom: '45%', zIndex: 10, scale: 0.9 },
+                // Boys (3, 4, 5)
+                { left: '34%', bottom: '22%', zIndex: 20, scale: 1.0 },
+                { left: '66%', bottom: '22%', zIndex: 20, scale: 1.0 },
+                { left: '50%', bottom: '10%', zIndex: 30, scale: 1.1 }
             ];
 
             const pos = positions[studentIdx] || { left: '50%', bottom: '15%', zIndex: 15, scale: 1 };
