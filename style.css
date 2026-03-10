@@ -127,8 +127,8 @@ button {
 .primary-btn {
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     color: #d81b60;
-    padding: 16px 36px;
-    font-size: 1.6rem;
+    padding: clamp(10px, 3vw, 16px) clamp(20px, 5vw, 36px);
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
     font-weight: 800;
     border-radius: 50px;
     box-shadow: 0 8px 0 #fb8ba8, 0 15px 20px rgba(255, 154, 158, 0.4);
@@ -584,7 +584,8 @@ button {
     box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
     border: 3px dashed #ffb5cb;
     transition: opacity 0.3s ease, transform 0.3s ease;
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 90%;
 }
 
 .touch-hint .hint-text {
@@ -634,9 +635,9 @@ button {
     color: #e91e63;
     border: 3px solid #ffb5cb;
     box-shadow: 0 5px 0 #ffb5cb, 0 10px 15px rgba(233, 30, 99, 0.2);
-    padding: 12px 28px;
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 28px);
     border-radius: 30px;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
     font-weight: 700;
     transition: bottom 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.1s ease, box-shadow 0.1s ease;
 }
@@ -675,8 +676,9 @@ button {
 }
 
 #student-buttons-container {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
     padding-bottom: 20px;
@@ -684,38 +686,21 @@ button {
 }
 
 .student-btn {
+    flex: 1 1 calc(33.333% - 10px);
+    min-width: 90px;
+    max-width: 150px;
     background: linear-gradient(135deg, #fff5f8, #ffe0e9);
     border: none;
     color: #e91e63;
     padding: 12px 10px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
     font-weight: 800;
-    width: 100%;
     box-shadow: 0 6px 0 #ff8da1, 0 10px 15px rgba(255, 182, 193, 0.4);
     transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
     position: relative;
     overflow: hidden;
-}
-
-.student-btn:nth-child(1),
-.student-btn:nth-child(2),
-.student-btn:nth-child(3),
-.student-btn:nth-child(4) {
-    grid-column: span 2;
-}
-
-.student-btn:nth-child(5) {
-    grid-column: 2 / span 2;
-}
-
-.student-btn:nth-child(6) {
-    grid-column: 4 / span 2;
-}
-
-.student-btn:nth-child(7) {
-    grid-column: 6 / span 2;
 }
 
 /* Cute inner gloss effect */
@@ -825,13 +810,16 @@ button {
 
 .banner-content {
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    padding: 40px 20px;
+    padding: clamp(20px, 5vw, 40px) clamp(10px, 3vw, 20px);
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 105, 135, 0.5);
     transform: scale(0.8);
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     max-width: 90%;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
     z-index: 2;
     position: relative;
 }
@@ -928,14 +916,14 @@ button {
 
 .banner-content h1 {
     color: #e91e63;
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
     margin-bottom: 15px;
     text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
 }
 
 .banner-content p {
     color: #4a148c;
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
     line-height: 1.5;
     font-weight: 500;
     margin-bottom: 25px;
@@ -1008,18 +996,21 @@ button {
 
 .modal-box {
     background: #fff;
-    padding: 24px 30px;
+    padding: clamp(16px, 4vw, 24px) clamp(20px, 5vw, 30px);
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(233, 30, 99, 0.4);
     text-align: center;
     max-width: 85%;
+    max-height: 80vh;
+    max-height: 80dvh;
+    overflow-y: auto;
     border: 4px solid #ffb5cb;
     animation: popIn 0.3s ease-out;
 }
 
 .modal-box p {
     color: #e91e63;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
     font-weight: 700;
     margin-bottom: 20px;
 }
