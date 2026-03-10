@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Array of students with mapping to their specific asset names.
     const students = [
-        { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3', message: 'Sensei, thank you for teaching us so patiently! Every lesson was a joy. We will never forget you! 💖' },
-        { id: 'isuri', name: 'イスリ<br>さん', voiceFileName: 'isuri.mp3', message: 'You made learning Japanese so incredibly fun! Thank you for everything, Sensei! 🌸' },
+        { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3', message: 'Sensei, thank you for teaching us so patiently! We will never forget you! 💖' },
+        { id: 'isuri', name: 'イスリ<br>さん', voiceFileName: 'isuri.mp3', message: 'You made learning Japanese so incredibly easy to understand! Thank you for everything, Sensei! 🌸' },
         { id: 'senuri', name: 'セヌリ<br>さん', voiceFileName: 'senuri.mp3', message: 'Your classes were always the brightest part of my day! Thank you from the bottom of my heart! ✨' },
         { id: 'geenula', name: 'ヤシル<br>さん', voiceFileName: 'geenula.mp3', message: 'Sensei, no words can express how amazing you are as a teacher! I am so deeply grateful! 🥺' },
         { id: 'gesitha', name: 'ゲシタ<br>さん', voiceFileName: 'gesitha.mp3', message: 'Thank you for your endless support, patience, and guidance! We will miss you so much! 🌟' },
-        { id: 'nimesh', name: 'ニメシュ<br>さん', voiceFileName: 'nimesh.mp3', message: 'Arigatou gozaimasu, Sensei! Your teachings truly changed my life! 🙏' }
+        { id: 'nimesh', name: 'ニメシュ<br>さん', voiceFileName: 'nimesh.mp3', message: 'Arigatou gozaimasu, Sensei! Your teachings truly changed my perspective on learning Japanese.🙏' }
     ];
 
     let messagesRead = new Set();
