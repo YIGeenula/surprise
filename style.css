@@ -5,6 +5,8 @@
     box-sizing: border-box;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 body {
@@ -14,6 +16,8 @@ body {
     height: 100vh;
     height: 100dvh;
     width: 100vw;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .screen {
@@ -114,6 +118,9 @@ button {
     outline: none;
     transition: all 0.2s ease;
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+    appearance: none;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -825,6 +832,8 @@ button {
     transform: scale(0.8);
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     max-width: 90%;
+    z-index: 2;
+    position: relative;
 }
 
 #thank-you-banner.animate-banner .banner-content {
@@ -839,6 +848,82 @@ button {
     100% {
         transform: scale(1);
     }
+}
+
+/* Background Cats */
+.bg-cats {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.bg-cat {
+    position: absolute;
+    border-radius: 15px;
+    opacity: 0.85;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    animation: driftCat 4s ease-in-out infinite alternate;
+}
+
+@keyframes driftCat {
+    0% {
+        transform: translateY(0px) rotate(var(--rot, 0deg));
+    }
+
+    100% {
+        transform: translateY(-15px) rotate(var(--rot, 0deg));
+    }
+}
+
+.cat-tl {
+    top: 10%;
+    left: 5%;
+    width: 140px;
+    --rot: -10deg;
+    transform: rotate(-10deg);
+    animation-delay: 0s;
+}
+
+.cat-tr {
+    top: 12%;
+    right: 5%;
+    width: 120px;
+    --rot: 15deg;
+    transform: rotate(15deg);
+    animation-delay: -1s;
+}
+
+.cat-bl {
+    bottom: 15%;
+    left: 8%;
+    width: 130px;
+    --rot: 10deg;
+    transform: rotate(10deg);
+    animation-delay: -2s;
+}
+
+.cat-br {
+    bottom: 10%;
+    right: 8%;
+    width: 150px;
+    --rot: -15deg;
+    transform: rotate(-15deg);
+    animation-delay: -3s;
+}
+
+.cat-tc {
+    top: 2%;
+    left: 50%;
+    max-width: 150px;
+    --rot: 0deg;
+    transform: translateX(-50%);
+    animation-delay: -1.5s;
+    opacity: 0.4;
 }
 
 .banner-content h1 {
