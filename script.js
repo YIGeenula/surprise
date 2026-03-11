@@ -1,4 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Countdown Timer logic
+    const targetDate = new Date("2026-03-14T09:00:00").getTime();
+    const countdownScreen = document.getElementById("countdown-screen");
+    const volumeCheckModal = document.getElementById("volume-check-modal");
+    const welcomeScreen = document.getElementById("welcome-screen");
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+            // Countdown finished
+            if (countdownScreen) countdownScreen.classList.remove("active");
+            if (volumeCheckModal) volumeCheckModal.style.display = "";
+            if (welcomeScreen) welcomeScreen.style.display = "";
+            return true;
+        } else {
+            // Update UI
+            document.getElementById("cd-days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("cd-hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("cd-minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("cd-seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+            // Hide normal elements while countdown is active
+            if (volumeCheckModal) volumeCheckModal.style.display = "none";
+            if (welcomeScreen) welcomeScreen.style.display = "none";
+            if (countdownScreen) countdownScreen.classList.add("active");
+            return false;
+        }
+    }
+
+    let cdInterval;
+    if (!updateCountdown()) {
+        cdInterval = setInterval(() => {
+            if (updateCountdown()) clearInterval(cdInterval);
+        }, 1000);
+    }
+
     // Array of students with mapping to their specific asset names.
     const students = [
         { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3', message: 'Sensei, thank you for teaching us so patiently! We will never forget you! 💖' },
@@ -22,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeVoices = 0;
 
     // Volume Check Overlay Logic
-    const volumeCheckModal = document.getElementById("volume-check-modal");
+    // volumeCheckModal is already declared
     const btnVolumeOk = document.getElementById("btn-volume-ok");
 
     if (btnVolumeOk && volumeCheckModal) {
@@ -33,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Welcome Screen -> Main Stage Transition
     const btnHiSensei = document.getElementById("btn-hi-sensei");
-    const welcomeScreen = document.getElementById("welcome-screen");
+    // welcomeScreen is already declared
     const mainScreen = document.getElementById("main-screen");
 
     btnHiSensei.addEventListener("click", () => {

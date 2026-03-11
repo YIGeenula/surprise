@@ -17,6 +17,20 @@
     <!-- Sakura background container -->
     <div id="sakura-container"></div>
 
+    <!-- Countdown Screen -->
+    <div id="countdown-screen" class="screen">
+        <div style="text-align: center; z-index: 2001;">
+            <h1 style="color: #ff9a9e; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 30px; text-shadow: 0 0 15px rgba(255, 154, 158, 0.5);">🌸 Opening Soon 🌸</h1>
+            <div id="countdown-timer" style="display: flex; gap: clamp(10px, 3vw, 20px); justify-content: center; color: #fff;">
+                <div class="time-box"><span id="cd-days">00</span><small>Days</small></div>
+                <div class="time-box"><span id="cd-hours">00</span><small>Hrs</small></div>
+                <div class="time-box"><span id="cd-minutes">00</span><small>Min</small></div>
+                <div class="time-box"><span id="cd-seconds">00</span><small>Sec</small></div>
+            </div>
+            <p style="margin-top: 30px; font-size: clamp(1rem, 3vw, 1.2rem); color: #ffb7c5; letter-spacing: 1px;">March 14, 2026 - 08:45 AM</p>
+        </div>
+    </div>
+
     <!-- Volume Check Modal -->
     <div id="volume-check-modal" class="modal-overlay">
         <div class="modal-box" style="text-align: center; max-width: 90%; width: 320px;">
