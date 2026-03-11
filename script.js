@@ -21,6 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
     bgMusic.volume = 0.4;
     let activeVoices = 0;
 
+    // Volume Check Overlay Logic
+    const volumeCheckModal = document.getElementById("volume-check-modal");
+    const btnVolumeOk = document.getElementById("btn-volume-ok");
+
+    if (btnVolumeOk && volumeCheckModal) {
+        btnVolumeOk.addEventListener("click", () => {
+            volumeCheckModal.classList.add("hidden");
+        });
+    }
+
     // Welcome Screen -> Main Stage Transition
     const btnHiSensei = document.getElementById("btn-hi-sensei");
     const welcomeScreen = document.getElementById("welcome-screen");
@@ -197,11 +207,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const thankYouBanner = document.getElementById("thank-you-banner");
+    const cryingCatAudio = new Audio('assets/crying-cat-sound.mp3');
+
+    cryingCatAudio.addEventListener("ended", () => {
+        if (activeVoices === 0) bgMusic.volume = 0.4;
+    });
 
     btnLetUsThank.addEventListener("click", () => {
         if (messagesRead.size < students.length) {
             const customAlert = document.getElementById("custom-alert");
-            if (customAlert) customAlert.classList.remove("hidden");
+            if (customAlert) {
+                customAlert.classList.remove("hidden");
+                bgMusic.volume = 0.1;
+                cryingCatAudio.currentTime = 0;
+                cryingCatAudio.play().catch(e => console.error(e));
+            }
             return;
         }
 
@@ -217,6 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnAlertOk) {
         btnAlertOk.addEventListener("click", () => {
             document.getElementById("custom-alert").classList.add("hidden");
+            cryingCatAudio.pause();
+            if (activeVoices === 0) bgMusic.volume = 0.4;
         });
     }
 
