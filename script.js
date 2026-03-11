@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 'dihansa', name: 'ディハンサー<br>さん', voiceFileName: 'dihansa.mp3', message: 'Sensei, thank you for teaching us so patiently! We will never forget you! 💖' },
         { id: 'isuri', name: 'イスリ<br>さん', voiceFileName: 'isuri.mp3', message: 'You made learning Japanese so incredibly easy to understand! Thank you for everything, Sensei! 🌸' },
         { id: 'senuri', name: 'セヌリ<br>さん', voiceFileName: 'senuri.mp3', message: 'Your classes were always the brightest part of my day! Thank you from the bottom of my heart! ✨' },
+        { id: 'kaveesha', name: 'カウィーシャ<br>さん', voiceFileName: 'kaveesha.mp3', message: 'Thank you for the wonderful memories, Sensei! You are the best! 💕' },
         { id: 'geenula', name: 'ヤシル<br>さん', voiceFileName: 'geenula.mp3', message: 'Sensei, no words can express how amazing you are as a teacher! I am so deeply grateful! 🥺' },
         { id: 'gesitha', name: 'ゲシタ<br>さん', voiceFileName: 'gesitha.mp3', message: 'Thank you for your endless support, patience, and guidance! We will miss you so much! 🌟' },
         { id: 'nimesh', name: 'ニメシュ<br>さん', voiceFileName: 'nimesh.mp3', message: 'Arigatou gozaimasu, Sensei! Your teachings truly changed my perspective on learning Japanese.🙏' }
@@ -15,12 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const clickedStudents = new Set();
     const charactersArea = document.getElementById("characters-area");
 
+    const bgMusic = new Audio('assets/bgmusic.mp3');
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4;
+    let activeVoices = 0;
+
     // Welcome Screen -> Main Stage Transition
     const btnHiSensei = document.getElementById("btn-hi-sensei");
     const welcomeScreen = document.getElementById("welcome-screen");
     const mainScreen = document.getElementById("main-screen");
 
     btnHiSensei.addEventListener("click", () => {
+        bgMusic.play().catch(e => console.error("Audio playback restricted", e));
+
         // Prepare transition by adding zoom class
         welcomeScreen.classList.add("zoom-in-out");
 
@@ -78,8 +86,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleStudentClick(student, btnElement) {
         // Play Audio
         const audio = new Audio(`assets/voice/${student.voiceFileName}`);
+
+        activeVoices++;
+        bgMusic.volume = 0.1;
+
         // To handle mobile autoplay policies, user gesture from click makes this allowed
         audio.play().catch(e => console.error("Audio playback restricted", e));
+
+        audio.addEventListener("ended", () => {
+            activeVoices--;
+            if (activeVoices <= 0) {
+                activeVoices = 0;
+                bgMusic.volume = 0.4;
+            }
+        });
 
         // Disable button styling slightly to show it was clicked, but allow re-click
         btnElement.classList.add("clicked");
@@ -97,11 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // Align characters in a staggered V-formation to prevent overlapping
             const studentIdx = students.findIndex(s => s.id === student.id);
             const positions = [
-                // Girls (0, 1, 2)
-                { left: '18%', bottom: '75%', zIndex: 10, scale: 0.9 },
-                { left: '50%', bottom: '75%', zIndex: 10, scale: 0.9 },
-                { left: '82%', bottom: '75%', zIndex: 10, scale: 0.9 },
-                // Boys (3, 4, 5)
+                // Girls (0, 1, 2, 3)
+                { left: '15%', bottom: '75%', zIndex: 10, scale: 0.9 },
+                { left: '38%', bottom: '75%', zIndex: 10, scale: 0.9 },
+                { left: '62%', bottom: '75%', zIndex: 10, scale: 0.9 },
+                { left: '85%', bottom: '75%', zIndex: 10, scale: 0.9 },
+                // Boys (4, 5, 6)
                 { left: '34%', bottom: '22%', zIndex: 20, scale: 1.0 },
                 { left: '66%', bottom: '22%', zIndex: 20, scale: 1.0 },
                 { left: '50%', bottom: '10%', zIndex: 30, scale: 1.1 }
