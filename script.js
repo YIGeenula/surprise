@@ -1,21 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Countdown Timer logic
-    const targetDate = new Date("2026-03-14T09:00:00").getTime();
+    const targetDate = new Date("2026-03-12T01:55:00").getTime();
     const countdownScreen = document.getElementById("countdown-screen");
     const volumeCheckModal = document.getElementById("volume-check-modal");
     const welcomeScreen = document.getElementById("welcome-screen");
+
+    const timerMusic = new Audio('assets/timer-music.mp3');
+    timerMusic.loop = true;
+    let isTimerMusicPlaying = false;
+    let countdownActive = true;
+    let autoplayTried = false;
+
+    // In case browser blocks autoplay, allow first click anywhere to start the timer music
+    document.body.addEventListener("click", () => {
+        if (countdownActive && !isTimerMusicPlaying) {
+            timerMusic.play().then(() => {
+                isTimerMusicPlaying = true;
+            }).catch(e => console.log("Audio playback restricted", e));
+        }
+    });
 
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = targetDate - now;
 
         if (distance <= 0) {
+            countdownActive = false;
             // Countdown finished
             if (countdownScreen) countdownScreen.classList.remove("active");
             if (volumeCheckModal) volumeCheckModal.style.display = "";
             if (welcomeScreen) welcomeScreen.style.display = "";
+
+            // Stop timer music when countdown is over
+            timerMusic.pause();
+            timerMusic.currentTime = 0;
+            isTimerMusicPlaying = false;
+
             return true;
         } else {
+            countdownActive = true;
             // Update UI
             document.getElementById("cd-days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
             document.getElementById("cd-hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
@@ -26,6 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (volumeCheckModal) volumeCheckModal.style.display = "none";
             if (welcomeScreen) welcomeScreen.style.display = "none";
             if (countdownScreen) countdownScreen.classList.add("active");
+
+            // Try playing timer music automatically
+            if (!isTimerMusicPlaying && !autoplayTried) {
+                autoplayTried = true;
+                timerMusic.play().then(() => {
+                    isTimerMusicPlaying = true;
+                }).catch(e => console.error("Countdown music autoplay restricted. Needs user interaction.", e));
+            }
+
             return false;
         }
     }
