@@ -19,6 +19,13 @@
 
     <!-- Countdown Screen -->
     <div id="countdown-screen" class="screen">
+        <button id="btn-toggle-timer-music" style="position: absolute; top: 20px; right: 20px; z-index: 2005; background: rgba(255,255,255,0.2); border: 2px solid #ff9a9e; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 0 10px rgba(255, 154, 158, 0.5); transition: background 0.3s;" onmouseover="this.style.background='rgba(255, 154, 158, 0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'" title="Toggle Music">
+            🔇
+        </button>
+        <div id="music-hint" class="music-hint">
+            Tap for music! 🎵
+            <div class="hint-pointer"></div>
+        </div>
         <div style="text-align: center; z-index: 2001;">
             <h1
                 style="color: #ff9a9e; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 30px; text-shadow: 0 0 15px rgba(255, 154, 158, 0.5);">

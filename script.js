@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Countdown Timer logic
-    const targetDate = new Date("2026-03-14T09:00:00").getTime();
+    const targetDate = new Date("2026-03-12T16:12:00").getTime();
     const countdownScreen = document.getElementById("countdown-screen");
     const volumeCheckModal = document.getElementById("volume-check-modal");
     const welcomeScreen = document.getElementById("welcome-screen");
@@ -10,12 +10,38 @@ document.addEventListener("DOMContentLoaded", () => {
     let isTimerMusicPlaying = false;
     let countdownActive = true;
     let autoplayTried = false;
+    let userToggledMusic = false;
+
+    const btnToggleTimerMusic = document.getElementById("btn-toggle-timer-music");
+    const musicHint = document.getElementById("music-hint");
+
+    if (btnToggleTimerMusic) {
+        btnToggleTimerMusic.addEventListener("click", (e) => {
+            e.stopPropagation(); // prevent body click
+            if (musicHint) musicHint.classList.add("hidden");
+
+            if (isTimerMusicPlaying) {
+                timerMusic.pause();
+                isTimerMusicPlaying = false;
+                btnToggleTimerMusic.innerHTML = "🔇";
+                userToggledMusic = true;
+            } else {
+                timerMusic.play().then(() => {
+                    isTimerMusicPlaying = true;
+                    btnToggleTimerMusic.innerHTML = "🔊";
+                    userToggledMusic = true;
+                }).catch(e => console.error("Audio playback restricted", e));
+            }
+        });
+    }
 
     // In case browser blocks autoplay, allow first click anywhere to start the timer music
     document.body.addEventListener("click", () => {
-        if (countdownActive && !isTimerMusicPlaying) {
+        if (countdownActive && !isTimerMusicPlaying && !userToggledMusic) {
             timerMusic.play().then(() => {
                 isTimerMusicPlaying = true;
+                if (btnToggleTimerMusic) btnToggleTimerMusic.innerHTML = "🔊";
+                if (musicHint) musicHint.classList.add("hidden");
             }).catch(e => console.log("Audio playback restricted", e));
         }
     });
@@ -51,11 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (countdownScreen) countdownScreen.classList.add("active");
 
             // Try playing timer music automatically
-            if (!isTimerMusicPlaying && !autoplayTried) {
+            if (!isTimerMusicPlaying && !autoplayTried && !userToggledMusic) {
                 autoplayTried = true;
                 timerMusic.play().then(() => {
                     isTimerMusicPlaying = true;
-                }).catch(e => console.error("Countdown music autoplay restricted. Needs user interaction.", e));
+                    if (btnToggleTimerMusic) btnToggleTimerMusic.innerHTML = "🔊";
+                }).catch(e => {
+                    console.error("Countdown music autoplay restricted. Needs user interaction.", e);
+                    if (btnToggleTimerMusic) btnToggleTimerMusic.innerHTML = "🔇";
+                });
             }
 
             return false;
