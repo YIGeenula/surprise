@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Countdown Timer logic
-    const targetDate = new Date("2026-03-12T16:12:00").getTime();
+    const targetDate = new Date("2026-03-14T09:00:00").getTime();
     const countdownScreen = document.getElementById("countdown-screen");
     const volumeCheckModal = document.getElementById("volume-check-modal");
     const welcomeScreen = document.getElementById("welcome-screen");
