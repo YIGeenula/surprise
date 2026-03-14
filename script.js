@@ -398,3 +398,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createSakura();
 });
+
+// === Supabase Tracking Logic Start ===
+const SUPABASE_URL = 'https://wqhzrrwzokjkcpkhfwen.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxaHpycnd6b2tqa2Nwa2hmd2VuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NzY4NjEsImV4cCI6MjA4OTA1Mjg2MX0.1ROchHXyIBBlKymbzfOxZaHtOqNEXCsT_TZtoM6qBWg';
+
+if (window.supabase) {
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function trackVisit() {
+        try {
+            // Uniquely identify a visitor to see if the teacher visits multiple times
+            let visitorId = localStorage.getItem('unique_visitor_id');
+            if (!visitorId) {
+                // Generate a random ID if it's the first time
+                visitorId = 'visitor_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                localStorage.setItem('unique_visitor_id', visitorId);
+            }
+
+            // Fetch visitor's IP address
+            let ipAddress = 'unknown';
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                ipAddress = ipData.ip;
+            } catch (err) {
+                console.log('Failed to fetch IP', err);
+            }
+
+            const { data, error } = await supabaseClient
+                .from('page_visits')
+                .insert([
+                    {
+                        visitor_id: visitorId,
+                        ip_address: ipAddress,
+                        user_agent: navigator.userAgent
+                    }
+                ]);
+
+            if (error) {
+                console.warn("Supabase insert error (Ensure your 'page_visits' table is set up properly with Row Level Security (RLS) policies allowing inserts):", error.message);
+            } else {
+                console.log("Visit tracked successfully in Supabase.");
+            }
+        } catch (e) {
+            console.error("Error in tracking visit:", e);
+        }
+    }
+
+    // Call tracking as soon as script loads
+    trackVisit();
+}
+// === Supabase Tracking Logic End ===

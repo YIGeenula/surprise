@@ -11,12 +11,13 @@
     <title>ありがとうございます、先生</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "vojf7d7wit");
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "vvk08hh2tj");
     </script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -26,7 +27,10 @@
 
     <!-- Countdown Screen -->
     <div id="countdown-screen" class="screen">
-        <button id="btn-toggle-timer-music" style="position: absolute; top: 20px; right: 20px; z-index: 2005; background: rgba(255,255,255,0.2); border: 2px solid #ff9a9e; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 0 10px rgba(255, 154, 158, 0.5); transition: background 0.3s;" onmouseover="this.style.background='rgba(255, 154, 158, 0.5)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'" title="Toggle Music">
+        <button id="btn-toggle-timer-music"
+            style="position: absolute; top: 20px; right: 20px; z-index: 2005; background: rgba(255,255,255,0.2); border: 2px solid #ff9a9e; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 0 10px rgba(255, 154, 158, 0.5); transition: background 0.3s;"
+            onmouseover="this.style.background='rgba(255, 154, 158, 0.5)'"
+            onmouseout="this.style.background='rgba(255,255,255,0.2)'" title="Toggle Music">
             🔇
         </button>
         <div id="music-hint" class="music-hint">
