@@ -159,7 +159,20 @@
             <h1>どうもありがとうございます</h1>
             <p>For all your guidance, patience, and inspiration.</p>
             <button id="btn-return" class="secondary-btn return-btn">Return 🌸</button>
+            <br>
+            <button id="btn-show-memo" class="primary-btn bounce" style="margin-top: 15px; font-size: 1.2rem; background: linear-gradient(135deg, #ff9a9e, #fad0c4); box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);">Our Memo 📝</button>
             <div class="confetti-container"></div>
+        </div>
+    </div>
+
+    <!-- Memo Modal -->
+    <div id="memo-modal" class="modal-overlay hidden">
+        <div class="modal-box" style="max-width: 90%; width: 500px;">
+            <img src="assets/Memo.png" alt="Our Memo" style="width: 100%; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+            <div style="display: flex; justify-content: space-around; gap: 10px;">
+                <a href="assets/Memo.png" download="Sensei_Memo.png" class="primary-btn pulse" style="text-decoration: none; padding: 10px 20px; font-size: 1rem;">Download 📥</a>
+                <button id="btn-close-memo" class="secondary-btn" style="padding: 10px 20px; font-size: 1rem;">Close ✖️</button>
+            </div>
         </div>
     </div>
 

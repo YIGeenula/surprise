@@ -356,6 +356,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const btnShowMemo = document.getElementById("btn-show-memo");
+    const memoModal = document.getElementById("memo-modal");
+    const btnCloseMemo = document.getElementById("btn-close-memo");
+
+    if (btnShowMemo && memoModal && btnCloseMemo) {
+        btnShowMemo.addEventListener("click", () => {
+            memoModal.classList.remove("hidden");
+        });
+
+        btnCloseMemo.addEventListener("click", () => {
+            memoModal.classList.add("hidden");
+        });
+    }
+
     function createConfetti() {
         const container = document.querySelector('.confetti-container');
         const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
